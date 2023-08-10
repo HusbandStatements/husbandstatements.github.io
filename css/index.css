@@ -1,0 +1,309 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: grid;
+    overflow-y: auto;
+    place-items: center;
+    font-family: sans-serif;
+    background-color: rgb(1, 1, 1);
+    background-image: linear-gradient(rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.5)), url("../images/love.gif");
+    color: white;
+    transition: background-color 500ms ease;
+}
+
+header {
+    z-index: 999;
+    text-align: center;
+    top: 0rem;
+    padding: 1rem;
+    background: inherit;
+}
+
+.container {
+    position: relative;
+    height: auto;
+    width: min(400px, 100%);
+}
+
+ul {
+    list-style: none;
+    width: 100%;
+    height: 400px;
+    position: relative;
+    perspective: 900px;
+    transform-style: preserve-3d;
+}
+
+ul > li {
+    filter: blur(5px);
+    position: absolute;
+    left: 50%;
+    top: calc(50% - 1.2rem);
+    --rotateX: calc(
+            1deg * var(--rotateDegrees) * calc(var(--day_idx) - var(--currentDay))
+    );
+    transform: rotateX(var(--rotateX)) translateZ(190px) translateX(-50%)
+    scale(var(--scale, 1));
+    --hue: calc(var(--rotateDegrees) * var(--day_idx));
+    background-color: hsl(var(--hue), 50%, var(--lightness, 50%));
+    width: 70%;
+    color: white;
+    display: grid;
+    grid-template-columns: 2.5rem auto;
+    height: 2.4rem;
+    transition: transform 500ms ease, background-color 500ms ease;
+}
+
+ul > li.active {
+    filter: none;
+    --lightness: 30%;
+    --scale: 1.1;
+}
+
+ul > li > * {
+    display: grid;
+    align-items: center;
+}
+
+li > time {
+    text-align: center;
+}
+
+li > span {
+    padding-inline-start: 0.5rem;
+    color: white;
+}
+
+.controls {
+    position: absolute;
+    top: 50%;
+    right: -60px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
+
+.controls button {
+    width: 1.5rem;
+    aspect-ratio: 1;
+    font-size: 0.9rem;
+    color: white;
+    border: none;
+    cursor: pointer;
+    background: #39657e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controls button:hover,
+.controls button:focus {
+    background: rgb(6, 60, 131);
+}
+
+.controls button:active {
+    transform: scale(0.9);
+}
+
+.border {
+    width: 96%;
+    height: 3em;
+    border: 1px solid white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container_envelope {
+    position: relative;
+    top: 0vmin;
+}
+
+.envelope {
+    position: relative;
+    background: gray;
+    height: 30vmin;
+    width: 47.9vmin;
+}
+
+.card {
+    position: absolute;
+    background: #141414;
+    height: 25vmin;
+    width: 43vmin;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    left: 2.5vmin;
+    top: 0vmin;
+    animation: slide-rev 0.2s ease-out;
+}
+
+a {
+    text-decoration: none;
+}
+
+.message_envelope {
+    position: absolute;
+    color: black;
+    top: 5vmin;
+    transition: all .2s;
+    text-align: center;
+}
+
+.message_envelope:hover {
+    transform: scale(1.1);
+    transition: all .2s;
+}
+
+.text-animation-colors {
+    color: transparent;
+    background: rgb(255, 0, 0);
+    background: linear-gradient(
+            90deg,
+            rgba(255, 0, 0, 1) 0%,
+            rgba(238, 100, 10, 1) 7%,
+            rgba(210, 169, 39, 1) 14%,
+            rgba(234, 252, 62, 1) 21%,
+            rgba(134, 248, 82, 1) 28%,
+            rgba(99, 245, 156, 1) 35%,
+            rgba(87, 241, 215, 1) 42%,
+            rgba(75, 216, 237, 1) 49%,
+            rgba(66, 158, 239, 1) 56%,
+            rgba(57, 74, 241, 1) 63%,
+            rgba(126, 45, 244, 1) 70%,
+            rgba(162, 84, 247, 1) 77%,
+            rgba(229, 117, 249, 1) 84%,
+            rgba(251, 103, 164, 1) 91%,
+            rgba(253, 127, 190, 1) 97%,
+            rgba(255, 0, 191, 1) 100%
+    );
+    background-size: 500%;
+    background-clip: text;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+    animation: color-change 10s infinite ease-in-out;
+}
+
+@keyframes color-change {
+    0% {
+        background-position: 0 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    to {
+        background-position: 0 50%;
+    }
+}
+
+.cover {
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-bottom: 15vmin solid #131313;
+    border-left: 24vmin solid transparent;
+    border-right: 24vmin solid transparent;
+    top: 15vmin;
+    z-index: 3;
+}
+
+.cover::after {
+    position: absolute;
+    content: "";
+    border-left: 24.5vmin solid #1c1c1c;
+    border-bottom: 15vmin solid transparent;
+    border-top: 15vmin solid transparent;
+    top: -15vmin;
+    left: -24vmin;
+}
+
+.cover::before {
+    position: absolute;
+    content: "";
+    border-right: 24.5vmin solid #1e1e1e;
+    border-bottom: 15vmin solid transparent;
+    border-top: 15vmin solid transparent;
+    top: -15vmin;
+    left: -0.5vmin;
+}
+
+.lid {
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-top: 15vmin solid #464646;
+    border-left: 24vmin solid transparent;
+    border-right: 24vmin solid transparent;
+    top: 0;
+    transform-origin: top;
+    animation: open-rev 2s;
+}
+
+.container_envelope:hover .lid {
+    animation: open 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.container_envelope:hover .card {
+    animation: slide 0.2s;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+}
+
+.heart {
+    position: relative;
+    width: 5vmin;
+    height: 4vmin;
+    top: 7vmin;
+    left: -1vmin;
+}
+
+.heart:before, .heart:after {
+    position: absolute;
+    content: "";
+    left: 2.5vmin;
+    top: 7vim;
+    width: 2.5vmin;
+    height: 4vmin;
+    background: #f40b4a;
+    border-radius: 2.5vmin 2.5vmin 0 0;
+    transform: rotate(-45deg);
+    transform-origin: 0 100%;
+}
+
+.heart:after {
+    left: 0;
+    transform: rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+@keyframes open {
+    100% {
+        transform: rotatex(180deg);
+    }
+}
+@keyframes slide {
+    100% {
+        transform: translatey(-15vmin);
+        z-index: 2;
+    }
+}
+@keyframes open-rev {
+    from {
+        transform: rotatex(-180deg);
+    }
+}
+@keyframes slide-rev {
+    from {
+        transform: translatey(-15vmin);
+    }
+}
